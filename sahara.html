@@ -1,0 +1,380 @@
+<html><head><base href="." /><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Christmas Login Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(45deg, #1a472a, #2d5a27);
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes snowfall {
+      0% {
+        transform: translateY(-10vh) translateX(-10vw);
+      }
+      100% {
+        transform: translateY(110vh) translateX(10vw);
+      }
+    }
+
+    .snowflake {
+      position: fixed;
+      color: white;
+      font-size: 1em;
+      animation: snowfall 5s linear infinite;
+    }
+
+    @keyframes santaFall {
+      0% {
+        transform: translateY(-150px) rotate(0deg);
+        right: 90%;
+      }
+      50% {
+        transform: translateY(50vh) rotate(180deg);
+        right: 45%;
+      }
+      100% {
+        transform: translateY(120vh) rotate(360deg);
+        right: 0%;
+      }
+    }
+
+    @keyframes treeFall {
+      0% {
+        transform: translateY(-150px) rotate(0deg);
+      }
+      50% {
+        transform: translateY(50vh) rotate(180deg);
+      }
+      100% {
+        transform: translateY(120vh) rotate(360deg);
+      }
+    }
+
+    .falling-tree {
+      position: fixed;
+      top: 0;
+      width: 60px;
+      height: 60px;
+      z-index: 1000;
+      animation: treeFall 6s linear infinite;
+    }
+
+    .santa {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100px;
+      height: 100px;
+      z-index: 1000;
+      animation: santaFall 8s linear infinite;
+    }
+
+    .login-container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      transform: translateY(0);
+      transition: transform 0.3s ease;
+      border: 3px solid #c41e3a;
+      position: relative;
+    }
+
+    .santa-box {
+      position: absolute;
+      top: -50px;
+      right: -30px;
+      width: 100px;
+      height: 100px;
+      transform: rotate(15deg);
+    }
+
+    .login-container:hover {
+      transform: translateY(-5px);
+    }
+
+    h1 {
+      color: #c41e3a;
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+      font-family: 'Mountains of Christmas', cursive;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #1a472a;
+      font-weight: 500;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid #2d5a27;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #c41e3a;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      background: #c41e3a;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #961530;
+    }
+
+    .forgot-password {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .forgot-password a {
+      color: #1a472a;
+      text-decoration: none;
+      font-size: 0.875rem;
+    }
+
+    .forgot-password a:hover {
+      color: #c41e3a;
+      text-decoration: underline;
+    }
+
+    .success-message {
+      display: none;
+      color: #2d5a27;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .error-message {
+      display: none;
+      color: #c41e3a;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+
+    .shake {
+      animation: shake 0.5s ease-in-out;
+    }
+
+    .christmas-tree {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      width: 100px;
+      height: 100px;
+      opacity: 0.8;
+    }
+
+    .snowman {
+      position: fixed;
+      bottom: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: bottom 1s ease-out;
+      z-index: 1000;
+    }
+
+    @keyframes wave {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(20deg); }
+    }
+
+    .snowman .arm-right {
+      transform-origin: 70% 80%;
+      animation: wave 2s infinite;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <svg class="santa" viewBox="0 0 100 100">
+    <circle cx="50" cy="40" r="20" fill="#FFE4E1"/>
+    <circle cx="43" cy="35" r="2" fill="black"/>
+    <circle cx="57" cy="35" r="2" fill="black"/>
+    <path d="M30 35 Q50 10 70 35" fill="#c41e3a"/>
+    <circle cx="70" cy="35" r="5" fill="white"/>
+    <path d="M30 40 Q50 60 70 40" fill="white"/>
+    <rect x="35" y="50" width="30" height="30" fill="#c41e3a"/>
+    <rect x="35" y="60" width="30" height="5" fill="black"/>
+    <rect x="47" y="60" width="6" height="5" fill="gold"/>
+  </svg>
+
+  <div class="login-container">
+    <svg class="santa-box" viewBox="0 0 100 100">
+      <circle cx="50" cy="40" r="20" fill="#FFE4E1"/>
+      <circle cx="43" cy="35" r="2" fill="black"/>
+      <circle cx="57" cy="35" r="2" fill="black"/>
+      <path d="M30 35 Q50 10 70 35" fill="#c41e3a"/>
+      <circle cx="70" cy="35" r="5" fill="white"/>
+      <path d="M30 40 Q50 60 70 40" fill="white"/>
+      <rect x="35" y="50" width="30" height="30" fill="#c41e3a"/>
+      <rect x="35" y="60" width="30" height="5" fill="black"/>
+      <rect x="47" y="60" width="6" height="5" fill="gold"/>
+    </svg>
+    <h1>Holiday Login</h1>
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" required placeholder="Enter your email">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" required placeholder="Enter your password">
+      </div>
+      <button type="submit">Spread the Joy</button>
+      <div class="forgot-password">
+        <a href="https://example.com/reset-password">Forgot Password?</a>
+      </div>
+      <div class="success-message">Ho Ho Ho! Successfully logged in!</div>
+      <div class="error-message">Oops! Santa says try again!</div>
+    </form>
+  </div>
+
+  <svg class="snowman" width="200" height="300" viewBox="0 0 200 300">
+    <circle cx="100" cy="220" r="60" fill="white" stroke="#ddd" stroke-width="2"/>
+    <circle cx="100" cy="120" r="40" fill="white" stroke="#ddd" stroke-width="2"/>
+    <circle cx="85" cy="110" r="5" fill="black"/>
+    <circle cx="115" cy="110" r="5" fill="black"/>
+    <path d="M100,120 L120,125 L100,130 Z" fill="orange"/>
+    <path d="M85,135 Q100,145 115,135" fill="none" stroke="black" stroke-width="2"/>
+    <line x1="60" y1="120" x2="20" y2="100" stroke="brown" stroke-width="3" class="arm-left"/>
+    <line x1="140" y1="120" x2="180" y2="100" stroke="brown" stroke-width="3" class="arm-right"/>
+    <circle cx="100" cy="180" r="5" fill="black"/>
+    <circle cx="100" cy="220" r="5" fill="black"/>
+    <circle cx="100" cy="260" r="5" fill="black"/>
+    <rect x="70" y="60" width="60" height="10" fill="black"/>
+    <rect x="80" y="30" width="40" height="30" fill="black"/>
+  </svg>
+
+  <svg class="christmas-tree" viewBox="0 0 100 100">
+    <polygon points="50,10 20,80 80,80" fill="#2d5a27"/>
+    <rect x="45" y="80" width="10" height="10" fill="#4a2921"/>
+    <circle cx="50" cy="30" r="3" fill="#c41e3a"/>
+    <circle cx="40" cy="50" r="3" fill="gold"/>
+    <circle cx="60" cy="50" r="3" fill="#c41e3a"/>
+    <circle cx="50" cy="70" r="3" fill="gold"/>
+  </svg>
+
+  <script>
+    function createSnowflakes() {
+      const snowflakesCount = 50;
+      const body = document.querySelector('body');
+      
+      for(let i = 0; i < snowflakesCount; i++) {
+        const snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        snowflake.innerHTML = '❄';
+        snowflake.style.left = Math.random() * 100 + 'vw';
+        snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        snowflake.style.opacity = Math.random();
+        snowflake.style.fontSize = (Math.random() * 10 + 10) + 'px';
+        body.appendChild(snowflake);
+      }
+    }
+
+    function createSantas() {
+      const santaCount = 3;
+      const body = document.querySelector('body');
+      
+      for(let i = 0; i < santaCount; i++) {
+        const santaClone = document.querySelector('.santa').cloneNode(true);
+        santaClone.style.animationDelay = (i * 2.5) + 's';
+        body.appendChild(santaClone);
+      }
+    }
+
+    function createFallingTrees() {
+      const treeCount = 3;
+      const body = document.querySelector('body');
+      const treeTemplate = document.querySelector('.christmas-tree').cloneNode(true);
+      
+      for(let i = 0; i < treeCount; i++) {
+        const treeClone = treeTemplate.cloneNode(true);
+        treeClone.classList.add('falling-tree');
+        treeClone.style.left = (Math.random() * 80 + 10) + 'vw';
+        treeClone.style.animationDelay = (i * 2) + 's';
+        body.appendChild(treeClone);
+      }
+    }
+
+    createSnowflakes();
+    createSantas();
+    createFallingTrees();
+
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const successMessage = document.querySelector('.success-message');
+      const errorMessage = document.querySelector('.error-message');
+      const loginContainer = document.querySelector('.login-container');
+      const snowman = document.querySelector('.snowman');
+
+      if (email === 'test@example.com' && password === 'password123') {
+        errorMessage.style.display = 'none';
+        successMessage.style.display = 'block';
+        snowman.style.bottom = '20px';
+        
+        setTimeout(() => {
+          window.location.href = 'https://example.com/dashboard';
+        }, 3000);
+      } else {
+        successMessage.style.display = 'none';
+        errorMessage.style.display = 'block';
+        loginContainer.classList.add('shake');
+        
+        setTimeout(() => {
+          loginContainer.classList.remove('shake');
+        }, 500);
+      }
+    });
+
+    document.querySelectorAll('input').forEach(input => {
+      input.addEventListener('input', () => {
+        document.querySelector('.success-message').style.display = 'none';
+        document.querySelector('.error-message').style.display = 'none';
+      });
+    });
+  </script>
+</body></html>
